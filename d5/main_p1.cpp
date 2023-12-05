@@ -22,16 +22,6 @@ std::vector<int64_t> get_map(std::string fl){
   return rs;
 }
 
-std::vector<int64_t> map_to_range(std::vector<int64_t> source){
-  std::vector<int64_t> rs;
-  for(int i = 0; i < source.size(); i++){
-    for(int j = 0; j < source[i + 1]; j++){
-      rs.push_back(source[i] + j);
-    }
-  }
-  return rs;
-}
-
 int main(int argc, char **argv){
   if(argc < 2){
      std::cerr<<"usage: "<<argv[0]<<" <filename>\n";
@@ -46,7 +36,7 @@ int main(int argc, char **argv){
   std::string line;
   std::getline(file, line);
   std::vector<int64_t> source = get_map(line.substr(line.find(':') + 2, line.size()));
-  source = map_to_range(source);
+
   std::vector<int64_t> destination;
   std::getline(file,line);
   std::getline(file,line);
