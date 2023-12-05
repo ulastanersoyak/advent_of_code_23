@@ -1,35 +1,6 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include <vector>
-#include <unordered_set>
-#include <algorithm>
-#include <math.h>
-
-int get_intersection_count(std::vector<int> arr1, std::vector<int> arr2){ 
-  std::vector<int> intersection;
-  std::unordered_set<int> set(arr1.begin(), arr1.end());
-  for(const auto &num : arr2){
-    if(set.count(num) > 0){
-      intersection.push_back(num);
-    }
-  }
-  return intersection.size();
-}
-std::vector<int> convert_to_vector(std::string nums){
-  std::vector<int> rs;
-  for(int i = 0; i < nums.size(); i++){
-    int num = 0;
-    while(std::isdigit(nums[i])){
-      num = (num * 10) + nums[i] - '0';
-      i++;
-    }
-    if(num > 0){
-      rs.push_back(num);
-    }
-  }  
-  return rs;
-}
 
 int main(int argc, char **argv){
   if(argc < 2){
@@ -44,13 +15,7 @@ int main(int argc, char **argv){
   int rs = 0;
   std::string line;
   while(std::getline(file, line)){
-    std::string card = line.substr(line.find(':') + 1, line.size());
-    std::vector<int> winning_nums = convert_to_vector(card.substr(0, card.find('|')));
-    std::vector<int> player_nums = convert_to_vector(card.substr(card.find('|') + 1, card.size()));
-    int intersect_count = get_intersection_count(winning_nums, player_nums);
-    if(intersect_count > 0){
-      rs+=pow(2,intersect_count - 1);
-    }
+
   }
   std::cout<<rs;
   return 0;
