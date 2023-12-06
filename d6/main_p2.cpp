@@ -21,13 +21,11 @@ uint64_t to_num(std::string &line){
       rs.push_back(num);
       num = 0;
   }
-  uint64_t ret = 0;
-  for(int i = 0; i < rs.size(); i++){
-    int x = rs[i]*100;
-    ret*=100;
-    ret+=x;
-  }
-  return ret/100;
+  int result = 0;
+  for (int num : rs) {
+       result = result * 100 + num;
+  } 
+  return result;
 }
 
 int main(int argc, char **argv){
@@ -46,13 +44,23 @@ int main(int argc, char **argv){
   std::getline(file, line);
   uint64_t distance = to_num(line);
   std::vector<uint64_t> results;
-  int rs = 0;
-  for(uint64_t i = 0; i < time; i++){
-    uint64_t race_time = time - i;
-    if(race_time * i > distance){
-      rs++;
+  std::cout<<time<<'\n';
+  int64_t rs = 0;
+  int64_t fd = 0;
+  int64_t bd = 0;
+  for(int64_t i = 0, j = time;; i++, j--){
+    if(!fd && (time - i) * i> distance){
+      fd = i;      
+    }
+    if(!bd && (time-j)*j > distance){
+      bd = j;
+    }
+    if(bd && fd){
+      break;
     }
   }
-  std::cout<<rs;
+  rs = bd - fd;
+  rs = (rs < 0) ? rs * -1 : rs;
+  std::cout<<++rs;
   return 0;
 }
