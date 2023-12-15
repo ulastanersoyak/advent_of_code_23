@@ -1,32 +1,36 @@
+#include <algorithm>
 #include <cstdint>
-#include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <sstream>
+#include <memory>
 #include <string>
 #include <vector>
 
-int hash(const std::string &arg) {
-  uint64_t local = 0;
-  for (const auto ch : arg) {
-    if (ch == '\n') {
-      break;
+std::vector<std::string> transpose(std::vector<std::string> &map) {
+  std::vector<std::string> ret;
+  for (int i = 0; i < map[0].size(); i++) {
+    std::string line;
+    for (int j = map.size() - 1; j >= 0; j--) {
+      line = line + map[j][i];
     }
-    local += ch;
-    local = local * 17;
-    local = local % 256;
+    ret.push_back(line);
   }
-  return local;
+  return ret;
 }
 
-int get_element_idx(const std::vector<std::pair<std::string, int>> &vec,
-                    const std::string &arg) {
-  for (int i = 0; i < vec.size(); i++) {
-    if (vec[i].first == arg) {
-      return i;
+void tilt(std::vector<std::string> &map) {
+  for (int i = 0; i < map.size(); i++) {
+    for (int j = 0; j < map[0].size(); j++) {
+      if (map[i][j] == 'O' && i != 0) {
+        int x_pos = i;
+        while (x_pos > 0 && map[x_pos - 1][j] == '.') {
+          map[x_pos - 1][j] = 'O';
+          map[x_pos][j] = '.';
+          x_pos--;
+        }
+      }
     }
   }
-  return -1;
 }
 
 int main(int argc, char **argv) {
@@ -39,45 +43,29 @@ int main(int argc, char **argv) {
     std::cerr << "failed to open file " << argv[1];
     return -1;
   }
-  std::string segment;
-  std::vector<std::vector<std::pair<std::string, int>>> boxes;
-  boxes.reserve(256);
-  while (std::getline(file, segment, ',')) {
-    bool add_op = false;
-    std::string arg;
-    if (segment.find('=') != std::string::npos) {
-      arg = segment.substr(0, segment.find('='));
-      add_op = true;
-    } else {
-      arg = segment.substr(0, segment.find('-'));
-    }
-    auto hash_rs = hash(arg);
-    int idx = get_element_idx(boxes[hash_rs], arg);
-    if (add_op) {
-      if (idx == -1) {
-        boxes[hash_rs].push_back(std::pair<std::string, int>{
-            arg,
-            std::stoi(segment.substr(segment.find('=') + 1, segment.size()))});
-      } else {
-        boxes[hash_rs][idx].second =
-            std::stoi(segment.substr(segment.find('=') + 1, segment.size()));
-      }
-    } else {
-      if (idx == -1) {
-        continue;
-      } else {
-        boxes[hash_rs].erase(boxes[hash_rs].begin() + idx);
+  std::string line;
+  std::vector<std::string> map;
+  while (std::getline(file, line)) {
+    map.push_back(line);
+  }
+  std::vector<std::string> prev;
+  for (uint64_t i = 0; i < 4000; i++) {
+    tilt(map);
+    map = transpose(map);
+  }
+
+  int rs = 0;
+  for (int i = 0; i < map.size(); i++) {
+    for (int j = 0; j < map[0].size(); j++) {
+      int x_pos = i;
+      bool does_contribute = true;
+      if (map[i][j] == 'O') {
+        rs += map.size() - i;
       }
     }
   }
-  file.close();
-  uint64_t rs = 0;
-  for (int i = 0; i < boxes.capacity(); i++) {
-    for (int j = 0; j < boxes[i].size(); j++) {
-      int local = boxes[i][j].second * (i + 1) * (j + 1);
-      rs += local;
-    }
-  }
+
   std::cout << rs;
+  file.close();
   return 0;
 }
