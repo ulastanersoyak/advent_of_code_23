@@ -31,7 +31,7 @@ response=$(curl -s -b "$cookies_file" "$url")
 if [ $? -eq 0 ]; then
     echo "$response" > "$output_dir/input.txt"
 
-    echo "#include <array>
+    echo "#include <vector>
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -53,7 +53,7 @@ int main(int argc, char **argv){
   return 0;
 }" > "$output_dir/main_p1.cpp"
 
-    echo "#include <array>
+    echo "#include <vector>
 #include <fstream>
 #include <string>
 #include <iostream>
