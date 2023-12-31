@@ -1,9 +1,7 @@
 #include <cstdint>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
-#include <vector>
 
 int hash(const std::string &arg) {
   uint64_t local = 0;

@@ -20,10 +20,10 @@ struct position {
   }
 };
 
-position NORTH(1, 0);
-position SOUTH(-1, 0);
-position WEST(0, 1);
-position EAST(0, -1);
+constexpr position NORTH(1, 0);
+constexpr position SOUTH(-1, 0);
+constexpr position WEST(0, 1);
+constexpr position EAST(0, -1);
 
 std::map<char, std::pair<position, position>> lookup{
     {'|', std::pair<position, position>{NORTH, SOUTH}},
