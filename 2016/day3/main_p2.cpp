@@ -22,15 +22,12 @@ int main(int argc, char **argv) {
   file.close();
   int valid_triangles = 0;
   for (int i = 0; i < triangles[0].size(); i++) {
-    for (int j = 2; j < triangles.size(); j++) {
+    for (int j = 0; j < triangles.size(); j += 3) {
       int s1 = triangles[j - 2][i];
       int s2 = triangles[j - 1][i];
       int s3 = triangles[j][i];
-      if ((s1 / 100 == s2 / 100) && (s1 / 100 == s3 / 100) &&
-          (s2 / 100 == s3 / 100)) {
-        if ((s1 + s2) > s3 && (s1 + s3) > s2 && (s2 + s3) > s3) {
-          valid_triangles++;
-        }
+      if ((s1 + s2) > s3 && (s1 + s3) > s2 && (s2 + s3) > s3) {
+        valid_triangles++;
       }
     }
   }
