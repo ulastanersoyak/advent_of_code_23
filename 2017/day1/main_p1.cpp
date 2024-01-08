@@ -16,11 +16,16 @@ int main(int argc, char **argv) {
   std::getline(file, line);
   file.close();
   int rs = 0;
-  int padding = line.size() / 2;
-  for (int i = 0; i < line.size(); i++) {
-    int check_idx = (i + padding) % line.size();
-    if (line[i] == line[check_idx]) {
-      rs += line[i] - '0';
+  for (int i = 0; i <= line.size(); i++) {
+    if (i == line.size() - 1) {
+      if (line[i] == line[0]) {
+        rs += line[i] - '0';
+        break;
+      }
+    } else {
+      if (line[i] == line[i + 1]) {
+        rs += line[i] - '0';
+      }
     }
   }
   std::cout << rs;
