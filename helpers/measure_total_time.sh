@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXEC_DIR="./build/src/"
+EXEC_DIR="../build/src/"
 total_time=0
 
 for executable in "$EXEC_DIR"/*; do

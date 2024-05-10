@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cookies_file="cookies.txt"
-for year_dir in "./src/"*/; do
+for year_dir in "../src/"*/; do
     if [ -d "$year_dir" ]; then
         year=$(basename $year_dir)
         year_digits="${year: -2}"

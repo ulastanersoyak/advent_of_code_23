@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for year_dir in "./src/"*/; do
+for year_dir in "../src/"*/; do
     if [ -d "$year_dir" ]; then
         year=$(basename "$year_dir")
         present_numbers=""

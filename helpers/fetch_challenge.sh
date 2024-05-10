@@ -15,7 +15,7 @@ if [ "$day" -lt 1 ] || [ "$day" -gt 25 ]; then
 fi
 url="https://adventofcode.com/20$year/day/$day/input"
 cookies_file="cookies.txt"
-output_dir="./src/20$year/day$day"
+output_dir="../src/20$year/day$day"
 if [ ! -d "$output_dir" ]; then
     mkdir -p "$output_dir"
 fi
