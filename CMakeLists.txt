@@ -17,11 +17,11 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     -Wsuggest-override -Wsuggest-final-methods -Wsuggest-final-types -Wnon-virtual-dtor -Wctor-dtor-privacy)
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL Debug)
+if(CMAKE_BUILD_TYPE STREQUAL debug)
   add_compile_options(-g)
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL Release)
+if(CMAKE_BUILD_TYPE STREQUAL fast)
   add_compile_options(-Ofast)
 endif()
 
