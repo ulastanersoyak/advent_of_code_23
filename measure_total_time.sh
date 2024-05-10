@@ -10,6 +10,7 @@ for executable in "$EXEC_DIR"/*; do
         year=${parts[0]: -4}
         day=${parts[1]}
         input_path="./src/$year/$day/input.txt"
+        echo $input_path
         "$executable" $input_path> /dev/null 2>&1
         end_time=$(date +%s.%N)
         execution_time=$(echo "$end_time - $start_time" | bc)

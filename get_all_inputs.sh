@@ -8,7 +8,7 @@ for year_dir in "./src/"*/; do
         for day_dir in "$year_dir"*/; do
           day=$(basename $day_dir)
           day_digits="${day: 3}"
-          echo "fetching year $year day $day"
+          echo "fetching year $year $day"
           url="https://adventofcode.com/20$year_digits/day/$day_digits/input"
           output_dir="./src/20$year_digits/day$day_digits/"
           response=$(curl -s -b "$cookies_file" "$url")
