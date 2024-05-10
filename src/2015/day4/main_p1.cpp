@@ -17,9 +17,11 @@ md5 (const std::string &input)
   MD5_Final (digest, &context);
 
   std::stringstream stream;
-  for (int i = 0; i < MD5_DIGEST_LENGTH; ++i)
-    stream << std::hex << std::setw (2) << std::setfill ('0')
-           << static_cast<int> (digest[i]);
+  for (unsigned char i : digest)
+    {
+      stream << std::hex << std::setw (2) << std::setfill ('0')
+             << static_cast<int> (i);
+    }
 
   return stream.str ();
 }
